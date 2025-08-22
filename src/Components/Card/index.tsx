@@ -1,11 +1,11 @@
 import { Div, DivProps, Text } from "react-native-magnus";
 
 interface Props {
-  children: any
-  divProps?: DivProps
+  children: any;
+  divProps?: DivProps;
 }
 
-export default function Card({ children, divProps }: Props) {
+function Card({ children, divProps }: Props) {
   return (
     <Div
       bg="gray200"
@@ -20,5 +20,21 @@ export default function Card({ children, divProps }: Props) {
     >
       {children}
     </Div>
-  )
+  );
 }
+
+function CardContent({ children, divProps }: Props) {
+  return (
+    <Div
+      alignItems="center"
+      justifyContent="center"
+      flex={1}
+      flexDir="row"
+      {...divProps}
+    >
+      {children}
+    </Div>
+  );
+}
+
+export { Card, CardContent };
