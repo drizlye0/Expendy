@@ -9,17 +9,15 @@ export default function Stats() {
       <Card
         divProps={{
           mr: 10,
-          justifyContent: "center",
-          alignItems: "center"
         }}
       >
         <CardContent>
           <FontAwesome6
             name="dollar-sign"
             iconStyle="solid"
-            style={{ fontSize: 20, paddingRight: 10}}
+            style={{ fontSize: 20, margin: 15}}
           />
-          <Div ml={0} pl={0}>
+          <Div ml="none" pl={0}>
             <Text fontSize="lg" fontWeight="500">Total Spent</Text>
             <Text fontSize="2xl" fontWeight="bold">127.00</Text>
           </Div>
@@ -28,15 +26,13 @@ export default function Stats() {
       <Card
         divProps={{
           mr: 10,
-          justifyContent: "center",
-          alignItems: "center"
         }}
       >
         <CardContent>
           <FontAwesome6
             name="calendar"
             iconStyle="solid"
-            style={{ fontSize: 20, paddingRight: 10 }}
+            style={{ fontSize: 20, margin: 15}}
           />
           <Div>
             <Text fontSize="lg" fontWeight="500">This month</Text>

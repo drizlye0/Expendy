@@ -30,7 +30,7 @@ function CardContent({ children, divProps }: Props) {
   return (
     <Div
       alignItems="center"
-      justifyContent="center"
+      justifyContent="flex-start"
       flex={1}
       flexDir="row"
       {...divProps}
