@@ -29,8 +29,6 @@ function Card({ children, divProps }: Props) {
 function CardContent({ children, divProps }: Props) {
   return (
     <Div
-      alignItems="center"
-      justifyContent="flex-start"
       flex={1}
       flexDir="row"
       {...divProps}
