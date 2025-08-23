@@ -1,9 +1,16 @@
-import React from "react";
+import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
+import React, { ComponentProps } from "react";
 import { Div, DivProps } from "react-native-magnus";
 
 interface Props {
   children: React.ReactNode;
   divProps?: DivProps;
+}
+
+interface CardTitleProps {
+  children: React.ReactNode;
+  divProps?: DivProps;
+  iconProps: ComponentProps<typeof FontAwesome6>;
 }
 
 function Card({ children, divProps }: Props) {
@@ -28,14 +35,26 @@ function Card({ children, divProps }: Props) {
 
 function CardContent({ children, divProps }: Props) {
   return (
-    <Div
-      flex={1}
-      flexDir="row"
-      {...divProps}
-    >
+    <Div flex={1} flexDir="row" {...divProps}>
       {children}
     </Div>
   );
 }
 
-export { Card, CardContent };
+function CardTitle({ children, divProps, iconProps }: CardTitleProps) {
+  return (
+    <Div flexDir="row" alignItems="flex-end" m="10" {...divProps}>
+      <FontAwesome6
+        {...iconProps}
+        style={{
+          marginLeft: 5,
+          marginRight: 5,
+          fontSize: 17,
+        }}
+      />
+      {children}
+    </Div>
+  );
+}
+
+export { Card, CardContent, CardTitle };

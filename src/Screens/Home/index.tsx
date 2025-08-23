@@ -1,7 +1,7 @@
-import React from "react"
+import React from "react";
 import MainContainer from "@/Containers/MainContainer";
-import { Div } from "react-native-magnus";
 import { History, Overview, Stats } from "./components";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Home() {
   return (
@@ -10,11 +10,11 @@ export default function Home() {
         heading: "Expenses",
       }}
     >
-      <Div p={10} flex={1}>
+      <ScrollView style={{ flex: 1, padding: 15 }}>
         <Stats />
         <Overview />
         <History />
-      </Div>
+      </ScrollView>
     </MainContainer>
   );
 }
