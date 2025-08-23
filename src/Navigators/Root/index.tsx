@@ -1,19 +1,17 @@
+import React from "react";
 import Home from "@/Screens/Home";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const { Navigator, Screen } = createNativeStackNavigator()
+const { Navigator, Screen } = createNativeStackNavigator();
 
 export default function RootStack() {
   return (
     <Navigator
       screenOptions={{
-        headerShown: false
+        headerShown: false,
       }}
     >
-      <Screen
-        name="Home"
-        component={Home}
-      />
+      <Screen name="Home" component={Home} />
     </Navigator>
-  )
+  );
 }

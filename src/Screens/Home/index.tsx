@@ -1,3 +1,4 @@
+import React from "react"
 import MainContainer from "@/Containers/MainContainer";
 import { Div } from "react-native-magnus";
 import { History, Overview, Stats } from "./components";

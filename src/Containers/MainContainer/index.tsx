@@ -1,17 +1,18 @@
-import { Div, Header } from "react-native-magnus"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
+import React from "react";
+import { Div, Header } from "react-native-magnus";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface HeaderProps {
-  heading: string
+  heading: string;
 }
 
 interface Props {
-  children: any
-  headerProps: HeaderProps
+  children: React.ReactNode;
+  headerProps: HeaderProps;
 }
 
 export default function MainContainer({ children, headerProps }: Props) {
-  const { top, bottom } = useSafeAreaInsets()
+  const { top, bottom } = useSafeAreaInsets();
   return (
     <Div bg="white" flex={1} pt={top} pb={bottom}>
       <Header
@@ -28,5 +29,5 @@ export default function MainContainer({ children, headerProps }: Props) {
       </Header>
       {children}
     </Div>
-  )
+  );
 }

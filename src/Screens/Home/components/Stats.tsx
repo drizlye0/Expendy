@@ -1,3 +1,4 @@
+import React from "react"
 import { Div, Text } from "react-native-magnus";
 import { Card, CardContent } from "@/Components/Card";
 import FontAwesome6 from "@react-native-vector-icons/fontawesome6";

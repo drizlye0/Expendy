@@ -1,3 +1,4 @@
+import React from "react"
 import { Card, CardContent } from "@/Components/Card";
 import { Text } from "react-native-magnus";
 

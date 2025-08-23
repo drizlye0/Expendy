@@ -1,7 +1,8 @@
-import { Div, DivProps, Text } from "react-native-magnus";
+import React from "react";
+import { Div, DivProps } from "react-native-magnus";
 
 interface Props {
-  children: any;
+  children: React.ReactNode;
   divProps?: DivProps;
 }
 
