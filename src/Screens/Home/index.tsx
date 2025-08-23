@@ -1,6 +1,7 @@
 import MainContainer from "@/Containers/MainContainer";
 import { Card, CardContent } from "@/Components/Card";
 import { Div, Text } from "react-native-magnus";
+import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 
 function StatsContainer() {
   return (
@@ -8,14 +9,40 @@ function StatsContainer() {
       <Card
         divProps={{
           mr: 10,
+          justifyContent: "center",
+          alignItems: "center"
         }}
       >
         <CardContent>
-          <Text>Hello</Text>
+          <FontAwesome6
+            name="dollar-sign"
+            iconStyle="solid"
+            style={{ fontSize: 20, paddingRight: 10}}
+          />
+          <Div ml={0} pl={0}>
+            <Text fontSize="lg" fontWeight="500">Total Spent</Text>
+            <Text fontSize="2xl" fontWeight="bold">127.00</Text>
+          </Div>
         </CardContent>
       </Card>
-      <Card>
-        <Text>Hello</Text>
+      <Card
+        divProps={{
+          mr: 10,
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <CardContent>
+          <FontAwesome6
+            name="calendar"
+            iconStyle="solid"
+            style={{ fontSize: 20, paddingRight: 10 }}
+          />
+          <Div>
+            <Text fontSize="lg" fontWeight="500">This month</Text>
+            <Text fontSize="2xl" fontWeight="bold">3</Text>
+          </Div>
+        </CardContent>
       </Card>
     </Div>
   );
@@ -25,12 +52,19 @@ export default function Home() {
   return (
     <MainContainer
       headerProps={{
-        heading: "Home",
+        heading: "Expenses",
       }}
     >
       <Div p={10} flex={1}>
-        <StatsContainer /> 
+        <StatsContainer />
+        <Card divProps={{
+          mt: 25
+        }}>
+          <CardContent>
+            <Text>Hello</Text>
+          </CardContent>
+        </Card>
       </Div>
-   </MainContainer>
+    </MainContainer>
   );
 }

@@ -8,7 +8,7 @@ interface Props {
 function Card({ children, divProps }: Props) {
   return (
     <Div
-      bg="gray200"
+      bg="#f8fafc"
       minH={100}
       w="auto"
       p={5}
@@ -16,6 +16,8 @@ function Card({ children, divProps }: Props) {
       rounded="lg"
       flex={1}
       shadow="sm"
+      borderColor="gray500"
+      borderWidth={0.3}
       {...divProps}
     >
       {children}
