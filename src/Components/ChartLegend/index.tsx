@@ -13,8 +13,8 @@ export default function ChartLegend({ children, divProps }: Props) {
         flexDir="row"
         alignItems="center"
         justifyContent="space-around"
-        flexWrap="wrap"
-        maxW={320}
+        flexWrap="wrap-reverse"
+        maxW={280}
       >
         {children}
       </Div>

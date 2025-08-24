@@ -1,6 +1,6 @@
 import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 import React, { ComponentProps } from "react";
-import { Div, DivProps } from "react-native-magnus";
+import { Div, DivProps, Text } from "react-native-magnus";
 
 interface Props {
   children: React.ReactNode;
@@ -8,7 +8,8 @@ interface Props {
 }
 
 interface CardTitleProps {
-  children: React.ReactNode;
+  title: string;
+  textProps?: ComponentProps<typeof Text>;
   divProps?: DivProps;
   iconProps: ComponentProps<typeof FontAwesome6>;
 }
@@ -41,18 +42,25 @@ function CardContent({ children, divProps }: Props) {
   );
 }
 
-function CardTitle({ children, divProps, iconProps }: CardTitleProps) {
+function CardTitle({
+  title: text,
+  textProps,
+  divProps,
+  iconProps,
+}: CardTitleProps) {
   return (
     <Div flexDir="row" alignItems="flex-end" m="10" {...divProps}>
       <FontAwesome6
         {...iconProps}
         style={{
-          marginLeft: 5,
-          marginRight: 5,
+          marginLeft: 8,
+          marginRight: 8,
           fontSize: 17,
         }}
       />
-      {children}
+      <Text fontWeight="bold" fontSize="lg" {...textProps}>
+        {text}
+      </Text>
     </Div>
   );
 }

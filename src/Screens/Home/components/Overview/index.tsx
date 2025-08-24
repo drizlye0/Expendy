@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardTitle } from "@/Components/Card";
 import { Pie, PolarChart } from "victory-native";
-import { Text } from "react-native-magnus";
 import ChartLegend from "@/Components/ChartLegend";
 import Label from "@/Components/Label";
 
@@ -30,10 +29,10 @@ export default function Overview() {
         mt: 18,
       }}
     >
-      <CardTitle iconProps={{ name: "chart-pie", iconStyle: "solid" }}>
-        <Text fontSize="lg" fontWeight="bold">
-          Spending Overview
-        </Text>
+      <CardTitle 
+        iconProps={{ name: "chart-pie", iconStyle: "solid" }}
+        title="Spending Overview"
+      >
       </CardTitle>
       <CardContent 
         divProps={{ 
