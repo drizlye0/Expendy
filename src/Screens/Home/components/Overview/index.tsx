@@ -35,7 +35,12 @@ export default function Overview() {
           Spending Overview
         </Text>
       </CardTitle>
-      <CardContent divProps={{ flexDir: "column" }}>
+      <CardContent 
+        divProps={{ 
+          flexDir: "column",
+          pb: 15
+        }}
+      >
         <PolarChart
           data={DATA}
           labelKey={"label"}

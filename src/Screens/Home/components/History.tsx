@@ -4,7 +4,13 @@ import { Text } from "react-native-magnus";
 
 export default function History() {
   return (
-    <Card>
+    <Card
+      divProps={{
+        minH: 300,
+        mt: 18,
+        mb: 18
+      }}
+    >
       <CardContent>
         <Text>Recent</Text>
       </CardContent>

@@ -10,7 +10,7 @@ export default function Home() {
         heading: "Expenses",
       }}
     >
-      <ScrollView style={{ flex: 1, padding: 15 }}>
+      <ScrollView style={{ flex: 1, paddingRight: 15, paddingLeft: 15 }}>
         <Stats />
         <Overview />
         <History />

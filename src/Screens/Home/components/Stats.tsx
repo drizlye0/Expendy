@@ -23,7 +23,7 @@ export default function Stats() {
             style={{ fontSize: 20, margin: 15 }}
           />
           <Div ml="none" pl={0}>
-            <Text fontSize="lg" fontWeight="500">
+            <Text fontSize="lg" fontWeight="bold">
               Total Spent
             </Text>
             <Text fontSize="2xl" fontWeight="bold">
@@ -49,7 +49,7 @@ export default function Stats() {
             style={{ fontSize: 20, margin: 15 }}
           />
           <Div>
-            <Text fontSize="lg" fontWeight="500">
+            <Text fontSize="lg" fontWeight="bold">
               This month
             </Text>
             <Text fontSize="2xl" fontWeight="bold">
