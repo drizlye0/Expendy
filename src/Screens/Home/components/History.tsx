@@ -1,7 +1,6 @@
 import React from "react";
 import { Card, CardContent, CardTitle } from "@/Components/Card";
-import { ArticleType } from "@/Components/Article";
-import Article from "@/Components/Article";
+import { Article, ArticleType } from "@/Components/Article";
 import type { FontAwesome6IconName } from "@react-native-vector-icons/fontawesome6";
 
 interface ArticleData extends ArticleType {
@@ -16,7 +15,6 @@ const articles: Array<ArticleData> = [
     date: "2024-01-15",
     icon: "car",
   },
-
 
   {
     title: "Bus fare",

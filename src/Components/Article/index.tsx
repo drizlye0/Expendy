@@ -3,12 +3,11 @@ import React, { ComponentProps, PropsWithChildren } from "react";
 import { createContext, useContext } from "react";
 import { Div, Text } from "react-native-magnus";
 
-export type ArticleType = {
+type ArticleType = {
   title: string;
   type: string;
   price: number;
   date: string;
-  key?: React.Key;
 };
 
 interface ArticleContextType {
@@ -34,9 +33,7 @@ interface ArticleProps {
 
 function Article({ children, article, iconProps }: ArticleProps) {
   return (
-    <ArticleContext.Provider
-      value={{ article }}
-    >
+    <ArticleContext.Provider value={{ article }}>
       <Div flexDir="row" alignItems="center" p={10}>
         {iconProps ? (
           <FontAwesome6
@@ -115,4 +112,4 @@ Article.Date = Date;
 Article.Price = Price;
 Article.Category = Category;
 
-export default Article;
+export { Article, ArticleType };
