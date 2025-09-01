@@ -6,7 +6,7 @@ import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 export default function Stats() {
   return (
     <Div flexDir="row" h={130} flex={1} w="100%" justifyContent="space-between">
-      <Card divProps={{ mr: 30}} >
+      <Card divProps={{ mr: 30 }}>
         <CardContent
           divProps={{
             alignItems: "center",

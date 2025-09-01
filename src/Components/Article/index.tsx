@@ -1,7 +1,6 @@
-import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 import React, { ComponentProps, PropsWithChildren } from "react";
 import { createContext, useContext } from "react";
-import { Div, Text } from "react-native-magnus";
+import { Div, Text, Icon } from "react-native-magnus";
 
 type ArticleType = {
   title: string;
@@ -28,7 +27,7 @@ function useArticleContext(): ArticleContextType {
 interface ArticleProps {
   article: ArticleType;
   children: React.ReactNode;
-  iconProps?: ComponentProps<typeof FontAwesome6>;
+  iconProps?: ComponentProps<typeof Icon>;
 }
 
 function Article({ children, article, iconProps }: ArticleProps) {
@@ -36,16 +35,9 @@ function Article({ children, article, iconProps }: ArticleProps) {
     <ArticleContext.Provider value={{ article }}>
       <Div flexDir="row" alignItems="center" p={10}>
         {iconProps ? (
-          <FontAwesome6
-            {...iconProps}
-            style={{ fontSize: 18, marginRight: 10 }}
-          />
+          <Icon {...iconProps} fontSize={18} mr={10} fontFamily="FontAwesome" color="black" />
         ) : (
-          <FontAwesome6
-            name="basket-shopping"
-            iconStyle="solid"
-            style={{ fontSize: 18, marginRight: 10 }}
-          />
+          <Icon name="basket-shopping" fontSize={18} mr={10} />
         )}
         {children}
       </Div>

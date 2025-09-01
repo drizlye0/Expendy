@@ -1,10 +1,9 @@
 import React from "react";
 import { Card, CardContent, CardTitle } from "@/Components/Card";
 import { Article, ArticleType } from "@/Components/Article";
-import type { FontAwesome6IconName } from "@react-native-vector-icons/fontawesome6";
 
 interface ArticleData extends ArticleType {
-  icon: FontAwesome6IconName;
+  icon: string;
 }
 
 const articles: Array<ArticleData> = [
@@ -52,7 +51,7 @@ export default function History() {
     >
       <CardContent divProps={{ flex: 0, flexDir: "column" }}>
         <CardTitle
-          iconProps={{ name: "arrow-trend-up", iconStyle: "solid" }}
+          iconProps={{ name: "history" }}
           title="Recent Expenses"
         />
         {articles.map((article, key) => {
@@ -62,7 +61,6 @@ export default function History() {
               article={article}
               iconProps={{
                 name: article.icon,
-                iconStyle: "solid",
               }}
             >
               <Article.Content>

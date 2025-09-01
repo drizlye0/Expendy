@@ -29,15 +29,14 @@ export default function Overview() {
         mt: 18,
       }}
     >
-      <CardTitle 
-        iconProps={{ name: "chart-pie", iconStyle: "solid" }}
+      <CardTitle
+        iconProps={{ name: "pie-chart", color: "black" }}
         title="Spending Overview"
-      >
-      </CardTitle>
-      <CardContent 
-        divProps={{ 
+      ></CardTitle>
+      <CardContent
+        divProps={{
           flexDir: "column",
-          pb: 15
+          pb: 15,
         }}
       >
         <PolarChart
@@ -49,25 +48,16 @@ export default function Overview() {
           <Pie.Chart innerRadius={60} size={220} />
         </PolarChart>
         <ChartLegend>
+          {/*TODO: refactor when implments store*/}
           <Label
             iconProps={{
               name: "car",
-              iconStyle: "solid",
             }}
             text="Transport"
           />
           <Label
             iconProps={{
               name: "car",
-              iconStyle: "solid",
-            }}
-            text="Transport"
-          />
-
-          <Label
-            iconProps={{
-              name: "car",
-              iconStyle: "solid",
             }}
             text="Transport"
           />
@@ -75,7 +65,6 @@ export default function Overview() {
           <Label
             iconProps={{
               name: "car",
-              iconStyle: "solid",
             }}
             text="Transport"
           />
@@ -83,7 +72,13 @@ export default function Overview() {
           <Label
             iconProps={{
               name: "car",
-              iconStyle: "solid",
+            }}
+            text="Transport"
+          />
+
+          <Label
+            iconProps={{
+              name: "car",
             }}
             text="Transport"
           />

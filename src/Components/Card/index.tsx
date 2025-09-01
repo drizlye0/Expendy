@@ -1,6 +1,5 @@
-import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 import React, { ComponentProps } from "react";
-import { Div, DivProps, Text } from "react-native-magnus";
+import { Div, DivProps, Icon, Text } from "react-native-magnus";
 
 interface Props {
   children: React.ReactNode;
@@ -11,7 +10,7 @@ interface CardTitleProps {
   title: string;
   textProps?: ComponentProps<typeof Text>;
   divProps?: DivProps;
-  iconProps: ComponentProps<typeof FontAwesome6>;
+  iconProps: ComponentProps<typeof Icon>;
 }
 
 function Card({ children, divProps }: Props) {
@@ -50,14 +49,15 @@ function CardTitle({
 }: CardTitleProps) {
   return (
     <Div flexDir="row" alignItems="flex-end" m="10" {...divProps}>
-      <FontAwesome6
-        {...iconProps}
-        style={{
-          marginLeft: 8,
-          marginRight: 8,
-          fontSize: 17,
-        }}
+      <Icon
+        name={iconProps.name}
+        fontFamily="FontAwesome"
+        fontSize={17}
+        color="black"
+        mr={8}
+        ml={8}
       />
+
       <Text fontWeight="bold" fontSize="lg" {...textProps}>
         {text}
       </Text>

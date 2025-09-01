@@ -1,20 +1,20 @@
-const plugins = []
+const plugins = [];
 
 plugins.push([
-  'module-resolver',
+  "module-resolver",
   {
     root: ["./src"],
-    extensions: ['.js', '.json', '.ts', '.tsx'],
+    extensions: [".js", ".json", ".ts", ".tsx"],
     alias: {
-      '@': './src',
+      "@": "./src",
     },
   },
-])
+]);
 
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ['babel-preset-expo'],
-    plugins
+    presets: ["babel-preset-expo"],
+    plugins,
   };
 };
