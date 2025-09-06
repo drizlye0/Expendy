@@ -4,6 +4,8 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface HeaderProps {
   heading: string;
+  suffix?: React.ReactNode;
+  prefix?: React.ReactNode;
 }
 
 interface Props {
@@ -24,6 +26,8 @@ export default function MainContainer({ children, headerProps }: Props) {
         fontSize={18}
         lineHeight={26}
         textTransform="none"
+        suffix={headerProps.suffix ? headerProps.suffix : null}
+        prefix={headerProps.prefix ? headerProps.prefix : null}
       >
         {headerProps.heading}
       </Header>
