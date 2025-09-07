@@ -1,11 +1,11 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetModal,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { Dimensions } from "react-native";
+import { BackHandler, Dimensions } from "react-native";
 import { Text } from "react-native-magnus";
 
 const { height } = Dimensions.get("screen");
@@ -16,6 +16,8 @@ interface Props {
 }
 
 export default function ExpenseForm({ ref }: Props) {
+  const [currentIndex, setCurrentIndex] = useState<number>(-1);
+
   const renderBackdrop = useCallback((props: BottomSheetBackdropProps) => {
     return (
       <BottomSheetBackdrop
@@ -28,8 +30,33 @@ export default function ExpenseForm({ ref }: Props) {
     );
   }, []);
 
+  const onBackPress = () => {
+    if (ref !== null) {
+      ref.current?.close();
+      return true;
+    }
+  };
+
+  useEffect(() => {
+    if (currentIndex !== -1) {
+      const subscription = BackHandler.addEventListener(
+        "hardwareBackPress",
+        onBackPress,
+      );
+
+      return () => subscription.remove();
+    }
+  }, [currentIndex]);
+
   return (
-    <BottomSheetModal ref={ref} index={0} backdropComponent={renderBackdrop}>
+    <BottomSheetModal
+      ref={ref}
+      index={0}
+      backdropComponent={renderBackdrop}
+      onChange={(index) => {
+        setCurrentIndex(index);
+      }}
+    >
       <BottomSheetView style={{ flex: 1, height: percent }}>
         <Text>Hello</Text>
         <Text>Hello</Text>
