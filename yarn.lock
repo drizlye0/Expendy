@@ -1561,10 +1561,10 @@
   dependencies:
     nanoid "^3.3.11"
 
-"@shopify/react-native-skia@2.0.0-next.4":
-  version "2.0.0-next.4"
-  resolved "https://registry.yarnpkg.com/@shopify/react-native-skia/-/react-native-skia-2.0.0-next.4.tgz#eb3e142d9e5cccbc248c3bb232cecd82224758c4"
-  integrity sha512-NzvdgryRz6tkKMHgCChCKa3wXfN9TZhlV0/LrfIU/wKLC1uKgGXkoZgNz7Is0wwdhtao1JJJJ81fqHCGHgzk9g==
+"@shopify/react-native-skia@^2.2.11":
+  version "2.2.11"
+  resolved "https://registry.yarnpkg.com/@shopify/react-native-skia/-/react-native-skia-2.2.11.tgz#0262e35b5ebe476b0d127088c7d07c9d37e0c35a"
+  integrity sha512-OhiKLa9vkSCArceEaNpRUEGjDwikGOIibBIPRPtEZNiFuAK3O99rf4MJKodys3itUChz9X8jaiUab92d9jJylg==
   dependencies:
     canvaskit-wasm "0.40.0"
     react-reconciler "0.31.0"
