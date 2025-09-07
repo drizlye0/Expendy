@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import MainContainer from "@/Containers/MainContainer";
 import { History, Overview, Stats } from "./components";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Icon } from "react-native-magnus";
-import AddExpense from "../AddExpense";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import ExpenseForm from "../ExpenseForm";
 
-function AddExpenseButton() {
-  const [visible, setVisible] = useState(false);
-
+function AddExpenseButton({
+  handleModalPresent,
+}: {
+  handleModalPresent: () => void;
+}) {
   return (
     <Button
       bg="black"
@@ -15,20 +18,25 @@ function AddExpenseButton() {
       w={35}
       h={35}
       mr={10}
-      onPress={() => setVisible(!visible)}
+      onPress={() => handleModalPresent()}
     >
       <Icon name="plus" fontFamily="FontAwesome" color="white" fontSize="sm" />
-      <AddExpense visible={visible} setVisible={setVisible} />
     </Button>
   );
 }
 
 export default function Home() {
+  const bottomSheetModalRef = useRef<BottomSheetModal | null>(null);
+
+  const handleModalPresent = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
   return (
     <MainContainer
       headerProps={{
         heading: "Expenses",
-        suffix: <AddExpenseButton />,
+        suffix: <AddExpenseButton handleModalPresent={handleModalPresent} />,
       }}
     >
       <ScrollView
@@ -39,6 +47,7 @@ export default function Home() {
         <Overview />
         <History />
       </ScrollView>
+      <ExpenseForm ref={bottomSheetModalRef} />
     </MainContainer>
   );
 }

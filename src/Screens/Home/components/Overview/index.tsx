@@ -20,7 +20,7 @@ const DATA = Array.from({ length: 5 }, (_, i) => ({
   color: generateRandomColor(),
 }));
 
-export default function Overview() {
+function Overview() {
   return (
     <Card
       divProps={{
@@ -87,3 +87,5 @@ export default function Overview() {
     </Card>
   );
 }
+
+export default React.memo(Overview);
