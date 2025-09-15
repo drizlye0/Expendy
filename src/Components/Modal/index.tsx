@@ -5,6 +5,7 @@ import {
   BottomSheetModal,
   BottomSheetView,
 } from "@gorhom/bottom-sheet";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
   ref: React.RefObject<BottomSheetModal | null>;
@@ -31,10 +32,12 @@ export default function Modal({ ref, children, height }: Props) {
     <BottomSheetModal
       ref={ref}
       backdropComponent={ModalBackdrop}
+      index={0}
       onChange={handleSheetPositionChange}
+      stackBehavior="push"
     >
-      <BottomSheetView style={{ flex: 1, height: height }}>
-        {children}
+      <BottomSheetView style={{ flex: 1, minHeight: height }}>
+        <SafeAreaView style={{ flex: 1 }}>{children}</SafeAreaView>
       </BottomSheetView>
     </BottomSheetModal>
   );
