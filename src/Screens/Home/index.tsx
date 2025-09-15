@@ -1,10 +1,10 @@
-import React, { useCallback, useRef, useState } from "react";
+import React from "react";
 import MainContainer from "@/Containers/MainContainer";
 import { History, Overview, Stats } from "./components";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Icon } from "react-native-magnus";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import ExpenseForm from "../ExpenseForm";
+import { useBottomSheetModal } from "@/Hooks/useBottomSheetModal";
 
 function AddExpenseButton({
   handleModalPresent,
@@ -26,11 +26,7 @@ function AddExpenseButton({
 }
 
 export default function Home() {
-  const bottomSheetModalRef = useRef<BottomSheetModal | null>(null);
-
-  const handleModalPresent = useCallback(() => {
-    bottomSheetModalRef.current?.present();
-  }, []);
+  const { ref, handleModalPresent } = useBottomSheetModal();
 
   return (
     <MainContainer
@@ -47,7 +43,7 @@ export default function Home() {
         <Overview />
         <History />
       </ScrollView>
-      <ExpenseForm ref={bottomSheetModalRef} />
+      <ExpenseForm modalRef={ref} />
     </MainContainer>
   );
 }
