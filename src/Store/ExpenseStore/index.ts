@@ -5,14 +5,13 @@ import AsyncStorage, {
 } from "@react-native-async-storage/async-storage";
 
 const EXPENSE_LIST_KEY = "all-expenses";
+const SPENT_KEY = "spent";
 
 class ExpenseStore {
   private store: AsyncStorageStatic;
-  private spent: number;
 
   constructor(store: AsyncStorageStatic) {
     this.store = store;
-    this.spent = 0;
   }
 
   public async init() {
@@ -27,8 +26,28 @@ class ExpenseStore {
     }
   }
 
-  public getSpent() {
-    return this.spent;
+  public async getSpent() {
+    try {
+      const data = await this.store.getItem(SPENT_KEY);
+      if (!data) {
+        return 0;
+      }
+      const spent = parseInt(data);
+      return spent;
+    } catch (err) {
+      throw new StoreError(`Failed to get spent`);
+    }
+  }
+
+  public async addSpent(amount: number) {
+    try {
+      const spent = await this.getSpent();
+      const totalSpent = spent + amount;
+
+      await this.store.setItem(SPENT_KEY, totalSpent.toString());
+    } catch (err) {
+      throw new StoreError(`Failed to add spent`);
+    }
   }
 
   public async addExpense(expense: ExpenseItem) {
@@ -36,11 +55,21 @@ class ExpenseStore {
       const data = await this.store.getItem(EXPENSE_LIST_KEY);
       let expenses: ExpenseItem[] = data ? JSON.parse(data) : [];
       expenses.push(expense);
+      
       await this.store.setItem(EXPENSE_LIST_KEY, JSON.stringify(expenses));
-
-      this.spent = this.spent + expense.price;
+      await this.addSpent(expense.price);
     } catch (err) {
       throw new StoreError(`Failed to add expense`);
+    }
+  }
+
+  public async getExpenses() {
+    try {
+      const data = await this.store.getItem(EXPENSE_LIST_KEY);
+      const expenses: ExpenseItem[] = data ? JSON.parse(data) : [];
+      return expenses;
+    } catch (err) {
+      throw new StoreError(`Failed to get all expenses`);
     }
   }
 }
