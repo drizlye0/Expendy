@@ -14,25 +14,10 @@ class ExpenseStore {
     this.store = store;
   }
 
-  public async init() {
-    try {
-      const data = await this.store.getItem(EXPENSE_LIST_KEY);
-      if (!data) {
-        const empty: ExpenseItem[] = [];
-        await this.store.setItem(EXPENSE_LIST_KEY, JSON.stringify(empty));
-      }
-    } catch (err) {
-      throw new Error("Failed to initialize storage");
-    }
-  }
-
   public async getSpent() {
     try {
       const data = await this.store.getItem(SPENT_KEY);
-      if (!data) {
-        return 0;
-      }
-      const spent = parseInt(data);
+      const spent = parseInt(data ? data : "0");
       return spent;
     } catch (err) {
       throw new StoreError(`Failed to get spent`);
@@ -55,7 +40,7 @@ class ExpenseStore {
       const data = await this.store.getItem(EXPENSE_LIST_KEY);
       let expenses: ExpenseItem[] = data ? JSON.parse(data) : [];
       expenses.push(expense);
-      
+
       await this.store.setItem(EXPENSE_LIST_KEY, JSON.stringify(expenses));
       await this.addSpent(expense.price);
     } catch (err) {
@@ -70,6 +55,48 @@ class ExpenseStore {
       return expenses;
     } catch (err) {
       throw new StoreError(`Failed to get all expenses`);
+    }
+  }
+
+  private async initSpent() {
+    try {
+      const spent = await this.store.getItem(SPENT_KEY);
+      if (!spent) {
+        await this.store.setItem(SPENT_KEY, "0");
+      }
+    } catch (err) {
+      throw new StoreError(`Failed to initialize spent value`);
+    }
+  }
+
+  private async initExpenses() {
+    try {
+      const expenses = await this.store.getItem(EXPENSE_LIST_KEY);
+      if (!expenses) {
+        await this.store.setItem(EXPENSE_LIST_KEY, JSON.stringify([]));
+      }
+    } catch (err) {
+      throw new StoreError(`Failed to initialize expenses value`);
+    }
+  }
+
+  public async init() {
+    try {
+      await this.initSpent();
+      await this.initExpenses();
+    } catch (err) {
+      throw new StoreError("Failed to initialize storage");
+    }
+  }
+
+  public async clearAllValues() {
+    try {
+      const keys = [SPENT_KEY, EXPENSE_LIST_KEY];
+      keys.map(async (key) => {
+        await this.store.removeItem(key);
+      });
+    } catch (err) {
+      throw new StoreError(`Failed to clear all values`);
     }
   }
 }

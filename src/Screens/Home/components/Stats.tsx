@@ -2,8 +2,11 @@ import React from "react";
 import { Div, Text } from "react-native-magnus";
 import { Card, CardContent } from "@/Components/Card";
 import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
+import { useExpenseStore } from "@/Hooks/useExpenseStore";
 
 export default function Stats() {
+  const spent = useExpenseStore((state) => state.spent);
+
   return (
     <Div flexDir="row" h={130} flex={1} w="100%" justifyContent="space-between">
       <Card divProps={{ mr: 30 }}>
@@ -22,7 +25,7 @@ export default function Stats() {
               Total Spent
             </Text>
             <Text fontSize="2xl" fontWeight="bold">
-              127.00
+              {spent}
             </Text>
           </Div>
         </CardContent>

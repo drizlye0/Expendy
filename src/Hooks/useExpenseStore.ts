@@ -5,15 +5,16 @@ import { create } from "zustand";
 interface ExpenseState {
   expenses: ExpenseItem[];
   spent: number;
-  refresh: () => Promise<void>;
+  refreshData: () => Promise<void>;
   addExpense: (expense: ExpenseItem) => Promise<void>;
+  addSpent: (spent: number) => Promise<void>;
 }
 
 export const useExpenseStore = create<ExpenseState>((set, get) => ({
   expenses: [],
   spent: 0,
 
-  refresh: async () => {
+  refreshData: async () => {
     const expenses = await ExpenseStorage.getExpenses();
     const spent = await ExpenseStorage.getSpent();
 
@@ -22,6 +23,11 @@ export const useExpenseStore = create<ExpenseState>((set, get) => ({
 
   addExpense: async (expense: ExpenseItem) => {
     await ExpenseStorage.addExpense(expense);
-    await get().refresh();
+    await get().refreshData();
+  },
+
+  addSpent: async (spent: number) => {
+    await ExpenseStorage.addSpent(spent);
+    await get().refreshData();
   },
 }));

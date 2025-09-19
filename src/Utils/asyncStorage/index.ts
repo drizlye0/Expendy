@@ -1,5 +1,4 @@
 import AsyncStorage, { AsyncStorageStatic } from "@react-native-async-storage/async-storage";
-import { default as MockAsyncStorage }  from "@react-native-async-storage/async-storage/jest/async-storage-mock";
 
 export class StoreError extends Error {
   constructor(message: string) {
@@ -37,4 +36,3 @@ class Storage {
 }
 
 export const Store = new Storage(AsyncStorage)
-export const MockStore = new Storage(MockAsyncStorage)

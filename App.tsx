@@ -4,14 +4,18 @@ import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { ExpenseStorage } from "@/Store/ExpenseStore";
+import { useExpenseStore } from "@/Hooks/useExpenseStore";
 
 export default function App() {
+  const useExpenseStoreInit = useExpenseStore((state) => state.refreshData);
+
   useEffect(() => {
-    const setup = async () => {
+    const init = async () => {
       await ExpenseStorage.init();
+      await useExpenseStoreInit();
     };
 
-    setup();
+    init();
   }, []);
 
   return (
