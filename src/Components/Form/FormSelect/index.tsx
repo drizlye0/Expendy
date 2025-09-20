@@ -1,19 +1,24 @@
 import Modal from "@/Components/Modal";
 import { useBottomSheetModal } from "@/Hooks/useBottomSheetModal";
 import { HEIGHT } from "@/lib/constants";
-import { useState } from "react";
 import { Pressable } from "react-native";
 import { Div, Input, InputProps, Text } from "react-native-magnus";
 
 interface Props {
   inputProps: InputProps;
   options: string[];
+  selected: string | null;
+  setSelected: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const modalHeight = HEIGHT * 0.3;
 
-export function FormSelect({ inputProps, options }: Props) {
-  const [selected, setSelected] = useState<string | null>(null);
+export function FormSelect({
+  inputProps,
+  options,
+  selected,
+  setSelected,
+}: Props) {
   const { ref, handleModalPresent, handleModalClose } = useBottomSheetModal();
 
   const handleSelect = (value: string) => {
