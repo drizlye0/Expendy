@@ -2,7 +2,8 @@ import React from "react";
 import { Card, CardContent, CardTitle } from "@/Components/Card";
 import { Pie, PolarChart } from "victory-native";
 import ChartLegend from "@/Components/ChartLegend";
-import Label from "@/Components/Label";
+import { Text } from "react-native-magnus";
+import { useExpenseStore } from "@/Hooks/useExpenseStore";
 
 function randomNumber() {
   return Math.floor(Math.random() * 26) + 125;
@@ -21,6 +22,9 @@ const DATA = Array.from({ length: 5 }, (_, i) => ({
 }));
 
 function Overview() {
+  const expensesTypeCount = useExpenseStore((state) => state.expenseTypeCount);
+  console.log(expensesTypeCount);
+
   return (
     <Card
       divProps={{
@@ -49,39 +53,9 @@ function Overview() {
         </PolarChart>
         <ChartLegend>
           {/*TODO: refactor when implments store*/}
-          <Label
-            iconProps={{
-              name: "car",
-            }}
-            text="Transport"
-          />
-          <Label
-            iconProps={{
-              name: "car",
-            }}
-            text="Transport"
-          />
-
-          <Label
-            iconProps={{
-              name: "car",
-            }}
-            text="Transport"
-          />
-
-          <Label
-            iconProps={{
-              name: "car",
-            }}
-            text="Transport"
-          />
-
-          <Label
-            iconProps={{
-              name: "car",
-            }}
-            text="Transport"
-          />
+          {expensesTypeCount.length === 0 && (
+            <Text opacity={0.6}>No Expenses</Text>
+          )}
         </ChartLegend>
       </CardContent>
     </Card>

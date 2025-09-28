@@ -4,3 +4,8 @@ export type ExpenseItem = {
   type: string;
   date: string;
 };
+
+export type ExpenseTypeCount = {
+  type: string;
+  size: number;
+}
