@@ -11,7 +11,7 @@ export default function Label({ text, textProps, iconProps }: Props) {
   return (
     <Div flexDir="row" alignItems="center">
       <Icon {...iconProps} mr={2} color="black" fontFamily="FontAwesome" />
-      <Text {...textProps}>{text}</Text>
+      <Text fontWeight="bold" {...textProps}>{text}</Text>
     </Div>
   );
 }

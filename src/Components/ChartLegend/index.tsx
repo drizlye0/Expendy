@@ -11,7 +11,6 @@ export default function ChartLegend({ children, divProps }: Props) {
     <Div flex={1} justifyContent="center" alignItems="center" {...divProps}>
       <Div
         flexDir="row"
-        alignItems="center"
         justifyContent="space-around"
         flexWrap="wrap-reverse"
         maxW={280}

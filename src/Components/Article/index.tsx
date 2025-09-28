@@ -3,7 +3,7 @@ import { createContext, useContext } from "react";
 import { Div, Text, Icon } from "react-native-magnus";
 
 type ArticleType = {
-  title: string;
+  name: string;
   type: string;
   price: number;
   date: string;
@@ -37,7 +37,7 @@ function Article({ children, article, iconProps }: ArticleProps) {
         {iconProps ? (
           <Icon {...iconProps} fontSize={18} mr={10} fontFamily="FontAwesome" color="black" />
         ) : (
-          <Icon name="basket-shopping" fontSize={18} mr={10} />
+          <Icon name="shopping-basket" fontFamily="FontAwesome" fontSize={18} mr={10} color="black"/>
         )}
         {children}
       </Div>
@@ -69,7 +69,7 @@ function Title() {
   const { article } = useArticleContext();
   return (
     <Text fontWeight="bold" fontSize="md">
-      {article.title}
+      {article.name}
     </Text>
   );
 }
@@ -93,7 +93,7 @@ function Price() {
 function Category() {
   const { article } = useArticleContext();
 
-  return <Text fontSize="sm">{article.type}</Text>;
+  return <Text fontSize="sm" fontWeight="bold">{article.type}</Text>;
 }
 
 Article.Content = Content;

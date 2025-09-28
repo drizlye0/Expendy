@@ -1,3 +1,4 @@
+import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Div, Header } from "react-native-magnus";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -17,6 +18,7 @@ export default function MainContainer({ children, headerProps }: Props) {
   const { top, bottom } = useSafeAreaInsets();
   return (
     <Div bg="white" flex={1} pt={top} pb={bottom}>
+      <StatusBar style="auto"/>
       <Header
         p="none"
         shadow="none"
