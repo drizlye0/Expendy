@@ -43,7 +43,7 @@ class ExpenseStore {
 
       const index = types.findIndex((t) => t.type === expense.type);
 
-      if (index !== 1) {
+      if (index !== -1) {
         types[index].size += 1;
       } else {
         types.push({ type: expense.type, size: 1 });
@@ -113,7 +113,7 @@ class ExpenseStore {
     try {
       const types = await this.store.getItem(EXPENSE_TYPES_KEY);
       if (!types) {
-        await this.store.setItem(EXPENSE_TYPES_KEY, JSON.stringify({}));
+        await this.store.setItem(EXPENSE_TYPES_KEY, JSON.stringify([]));
       }
     } catch (err) {
       throw new StoreError(`Failed to initialize expense types value`);

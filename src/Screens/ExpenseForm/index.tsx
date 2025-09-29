@@ -30,6 +30,7 @@ export default function ExpenseForm({ modalRef }: Props) {
       name: expenseName,
       price: expensePrice,
       type: expenseType,
+      date: new Date().toString(),
     };
     addExpense(expense);
     clearState();
@@ -51,6 +52,7 @@ export default function ExpenseForm({ modalRef }: Props) {
           <Input
             placeholder="Name"
             minH={45}
+            autoCapitalize="words"
             focusBorderColor="blue700"
             value={expenseName}
             onChangeText={(name) => setExpenseName(name)}
@@ -61,6 +63,7 @@ export default function ExpenseForm({ modalRef }: Props) {
           <Input
             placeholder="Price"
             minH={45}
+            inputMode="numeric"
             focusBorderColor="blue700"
             fontSize="md"
             onChangeText={(price) => setExpensePrice(parseInt(price))}

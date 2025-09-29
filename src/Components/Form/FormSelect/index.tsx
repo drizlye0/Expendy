@@ -1,7 +1,8 @@
 import Modal from "@/Components/Modal";
 import { useBottomSheetModal } from "@/Hooks/useBottomSheetModal";
+import { useKeyboard } from "@/Hooks/useKeyboard";
 import { HEIGHT } from "@/lib/constants";
-import { Pressable } from "react-native";
+import { Pressable, Keyboard } from "react-native";
 import { Div, Input, InputProps, Text } from "react-native-magnus";
 
 interface Props {
@@ -20,6 +21,17 @@ export function FormSelect({
   setSelected,
 }: Props) {
   const { ref, handleModalPresent, handleModalClose } = useBottomSheetModal();
+  const isKeyboardOpen = useKeyboard();
+
+  const handlePresent = () => {
+    if (!isKeyboardOpen) {
+      handleModalPresent();
+      return;
+    }
+
+    Keyboard.dismiss();
+    handleModalPresent();
+  };
 
   const handleSelect = (value: string) => {
     setSelected(value);
@@ -28,7 +40,7 @@ export function FormSelect({
 
   return (
     <>
-      <Pressable onPress={handleModalPresent}>
+      <Pressable onPress={handlePresent}>
         <Input editable={false} {...inputProps} value={selected || ""} />
       </Pressable>
       <Modal ref={ref} height={modalHeight}>

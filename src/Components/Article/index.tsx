@@ -74,10 +74,12 @@ function Title() {
   );
 }
 
-function Date() {
+function ArticleDate() {
   const { article } = useArticleContext();
+  const parsedDate = new Date(article.date)
+  const formatedDate = new Intl.DateTimeFormat('en-US').format(parsedDate)
 
-  return <Text fontSize="sm">{article.date}</Text>;
+  return <Text fontSize="sm">{formatedDate}</Text>;
 }
 
 function Price() {
@@ -100,7 +102,7 @@ Article.Content = Content;
 Article.Left = Left;
 Article.Right = Right;
 Article.Title = Title;
-Article.Date = Date;
+Article.Date = ArticleDate;
 Article.Price = Price;
 Article.Category = Category;
 

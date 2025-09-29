@@ -23,7 +23,6 @@ const DATA = Array.from({ length: 5 }, (_, i) => ({
 
 function Overview() {
   const expensesTypeCount = useExpenseStore((state) => state.expenseTypeCount);
-  console.log(expensesTypeCount);
 
   return (
     <Card
