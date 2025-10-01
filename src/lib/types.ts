@@ -8,4 +8,5 @@ export type ExpenseItem = {
 export type ExpenseTypeCount = {
   type: string;
   size: number;
+  color: string;
 }

@@ -10,8 +10,15 @@ interface Props {
 export default function Label({ text, textProps, iconProps }: Props) {
   return (
     <Div flexDir="row" alignItems="center">
-      <Icon {...iconProps} mr={2} color="black" fontFamily="FontAwesome" />
-      <Text fontWeight="bold" {...textProps}>{text}</Text>
+      <Icon
+        ml={8}
+        color="black"
+        fontFamily="FontAwesome"
+        {...iconProps}
+      />
+      <Text fontWeight="bold" {...textProps}>
+        {text}
+      </Text>
     </Div>
   );
 }

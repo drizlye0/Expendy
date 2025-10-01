@@ -6,6 +6,7 @@ import { useExpenseStore } from "@/Hooks/useExpenseStore";
 
 export default function Stats() {
   const spent = useExpenseStore((state) => state.spent);
+  const expensesCount = useExpenseStore((state) => state.expensesCount)
 
   return (
     <Div flexDir="row" h={130} flex={1} w="100%" justifyContent="space-between">
@@ -47,7 +48,7 @@ export default function Stats() {
               This month
             </Text>
             <Text fontSize="2xl" fontWeight="bold">
-              3
+              {expensesCount}
             </Text>
           </Div>
         </CardContent>

@@ -4,25 +4,18 @@ import { Pie, PolarChart } from "victory-native";
 import ChartLegend from "@/Components/ChartLegend";
 import { Text } from "react-native-magnus";
 import { useExpenseStore } from "@/Hooks/useExpenseStore";
+import { ExpenseTypeCount } from "@/lib/types";
+import Label from "@/Components/Label";
 
-function randomNumber() {
-  return Math.floor(Math.random() * 26) + 125;
-}
-function generateRandomColor(): string {
-  // Generating a random number between 0 and 0xFFFFFF
-  const randomColor = Math.floor(Math.random() * 0xffffff);
-  // Converting the number to a hexadecimal string and padding with zeros
-  return `#${randomColor.toString(16).padStart(6, "0")}`;
-}
+const blankData: ExpenseTypeCountWithColor[] = [
+  { type: "nothing", size: 1, color: "#000000" },
+];
 
-const DATA = Array.from({ length: 5 }, (_, i) => ({
-  label: `Label ${i + 1}`,
-  highTemp: randomNumber(),
-  color: generateRandomColor(),
-}));
+type ExpenseTypeCountWithColor = ExpenseTypeCount & { color: string };
 
 function Overview() {
   const expensesTypeCount = useExpenseStore((state) => state.expenseTypeCount);
+  const chartData = expensesTypeCount;
 
   return (
     <Card
@@ -43,18 +36,24 @@ function Overview() {
         }}
       >
         <PolarChart
-          data={DATA}
-          labelKey={"label"}
-          valueKey={"highTemp"}
+          data={chartData.length ? chartData : blankData}
+          labelKey={"type"}
+          valueKey={"size"}
           colorKey={"color"}
         >
           <Pie.Chart innerRadius={60} size={220} />
         </PolarChart>
         <ChartLegend>
-          {/*TODO: refactor when implments store*/}
-          {expensesTypeCount.length === 0 && (
-            <Text opacity={0.6}>No Expenses</Text>
-          )}
+          {chartData.length === 0 && <Text opacity={0.6}>No Expenses</Text>}
+          {chartData.map((expenseType, key) => {
+            return (
+              <Label
+                text={expenseType.type}
+                iconProps={{ name: "shopping-basket" }}
+                key={key}
+              />
+            );
+          })}
         </ChartLegend>
       </CardContent>
     </Card>

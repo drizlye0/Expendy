@@ -1,5 +1,6 @@
 import { ExpenseItem, ExpenseTypeCount } from "@/lib/types";
 import { StoreError } from "@/Utils/asyncStorage";
+import { generateRandomColor } from "@/Utils/generateRandomColor";
 import AsyncStorage, {
   AsyncStorageStatic,
 } from "@react-native-async-storage/async-storage";
@@ -7,6 +8,7 @@ import AsyncStorage, {
 const EXPENSE_LIST_KEY = "all-expenses";
 const SPENT_KEY = "spent";
 const EXPENSE_TYPES_KEY = "expenses-types";
+const EXPENSES_COUNT = " expenses-count";
 
 class ExpenseStore {
   private store: AsyncStorageStatic;
@@ -36,6 +38,28 @@ class ExpenseStore {
     }
   }
 
+  public async getExpensesCount() {
+    try {
+      const data = await this.store.getItem(EXPENSES_COUNT);
+      const expensesCount = parseInt(data ? data : "0");
+
+      return expensesCount;
+    } catch (err) {
+      throw new StoreError(`Failed to get expense count`);
+    }
+  }
+
+  public async increaseExpensesCount() {
+    try {
+      const expensesCount = await this.getExpensesCount();
+      const total = expensesCount + 1;
+
+      await this.store.setItem(EXPENSES_COUNT, total.toString());
+    } catch (err) {
+      throw new StoreError(`Failed to get expense count`);
+    }
+  }
+
   private async updateExpensesTypesCount(expense: ExpenseItem) {
     try {
       const data = await this.store.getItem(EXPENSE_TYPES_KEY);
@@ -46,7 +70,11 @@ class ExpenseStore {
       if (index !== -1) {
         types[index].size += 1;
       } else {
-        types.push({ type: expense.type, size: 1 });
+        types.push({
+          type: expense.type,
+          size: 1,
+          color: generateRandomColor(),
+        });
       }
 
       await this.store.setItem(EXPENSE_TYPES_KEY, JSON.stringify(types));
@@ -72,6 +100,7 @@ class ExpenseStore {
 
       await this.store.setItem(EXPENSE_LIST_KEY, JSON.stringify(expenses));
       await this.addSpent(expense.price);
+      await this.increaseExpensesCount();
       await this.updateExpensesTypesCount(expense);
     } catch (err) {
       throw new StoreError(`Failed to add expense`);
