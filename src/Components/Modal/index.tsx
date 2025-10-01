@@ -10,7 +10,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 interface Props {
   ref: React.RefObject<BottomSheetModal | null>;
   children: React.ReactNode;
-  height?: number;
+  modalHeight?: number;
+  snapPoints?: Array<string>;
 }
 
 const ModalBackdrop = (props: BottomSheetBackdropProps) => {
@@ -25,18 +26,26 @@ const ModalBackdrop = (props: BottomSheetBackdropProps) => {
   );
 };
 
-export default function Modal({ ref, children, height }: Props) {
+export default function Modal({
+  ref,
+  children,
+  modalHeight,
+  snapPoints,
+}: Props) {
   const { handleSheetPositionChange } = useBottomSheetBackHandler(ref);
 
   return (
     <BottomSheetModal
       ref={ref}
+      snapPoints={snapPoints ? snapPoints : []}
+      enableDynamicSizing
+      enablePanDownToClose
       backdropComponent={ModalBackdrop}
       index={0}
       onChange={handleSheetPositionChange}
       stackBehavior="push"
     >
-      <BottomSheetView style={{ flex: 1, minHeight: height }}>
+      <BottomSheetView style={{ flex: 1, minHeight: modalHeight }}>
         <SafeAreaView style={{ flex: 1 }}>{children}</SafeAreaView>
       </BottomSheetView>
     </BottomSheetModal>

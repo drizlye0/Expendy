@@ -38,7 +38,7 @@ export default function ExpenseForm({ modalRef }: Props) {
   };
 
   return (
-    <Modal ref={modalRef} height={percent}>
+    <Modal ref={modalRef} modalHeight={percent}>
       <Div flex={1} justifyContent="flex-start" alignItems="center" m={20}>
         <Div alignItems="flex-start" minW={350} mb={10}>
           <Text textAlign="right" fontSize="5xl" fontWeight="bold">
