@@ -1,6 +1,6 @@
 import React from "react";
 import MainContainer from "@/Containers/MainContainer";
-import { History, Overview, Stats } from "./components";
+import { History, Overview, Stats } from "./Components";
 import { ScrollView } from "react-native-gesture-handler";
 import { Button, Icon } from "react-native-magnus";
 import ExpenseForm from "../ExpenseForm";
