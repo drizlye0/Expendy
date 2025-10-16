@@ -5,12 +5,15 @@ import { ScrollView } from "react-native-gesture-handler";
 import { Button, Icon } from "react-native-magnus";
 import ExpenseForm from "../ExpenseForm";
 import { useBottomSheetModal } from "@/Hooks/useBottomSheetModal";
+import { useNavigation } from "@react-navigation/native";
 
 function AddExpenseButton({
   handleModalPresent,
 }: {
   handleModalPresent: () => void;
 }) {
+  const navigation = useNavigation();
+
   return (
     <Button
       bg="black"
@@ -18,9 +21,9 @@ function AddExpenseButton({
       w={35}
       h={35}
       mr={10}
-      onPress={() => handleModalPresent()}
+      onPress={() => navigation.navigate("AddExpense")}
     >
-      <Icon name="plus" fontFamily="FontAwesome" color="white" fontSize="sm" />
+      <Icon name="plus" fontFamily="FontAwesome5" color="white" fontSize="sm" />
     </Button>
   );
 }

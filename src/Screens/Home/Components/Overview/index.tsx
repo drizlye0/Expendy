@@ -26,7 +26,7 @@ function Overview() {
       }}
     >
       <CardTitle
-        iconProps={{ name: "pie-chart", color: "black" }}
+        iconProps={{ name: "chart-pie", color: "black" }}
         title="Spending Overview"
       ></CardTitle>
       <CardContent

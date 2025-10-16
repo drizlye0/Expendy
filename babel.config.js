@@ -1,20 +1,17 @@
-const plugins = [];
+module.exports = {
+  presets: ['module:@react-native/babel-preset'],
+  plugins: [
+    ['module-resolver',
+      {
+        root: ['./src'],
+        extensions: ['.js', '.json', '.ts', '.tsx'],
+        alias: {
+          '@': './src',
+        },
+      },
+    ],
 
-plugins.push([
-  "module-resolver",
-  {
-    root: ["./src"],
-    extensions: [".js", ".json", ".ts", ".tsx"],
-    alias: {
-      "@": "./src",
-    },
-  },
-]);
-
-module.exports = function (api) {
-  api.cache(true);
-  return {
-    presets: ["babel-preset-expo"],
-    plugins,
-  };
+    ['react-native-worklets/plugin' , {}, 'worklets'],
+    ['react-native-reanimated/plugin', {}, 'reanimated'],
+  ],
 };

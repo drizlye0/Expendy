@@ -10,7 +10,7 @@ interface CardTitleProps {
   title: string;
   textProps?: ComponentProps<typeof Text>;
   divProps?: DivProps;
-  iconProps: ComponentProps<typeof Icon>;
+  iconProps?: ComponentProps<typeof Icon>;
 }
 
 function Card({ children, divProps }: Props) {
@@ -50,12 +50,11 @@ function CardTitle({
   return (
     <Div flexDir="row" alignItems="flex-end" m="10" {...divProps}>
       <Icon
-        name={iconProps.name}
-        fontFamily="FontAwesome"
+        name={iconProps ? iconProps.name : "shopping-basket"}
+        fontFamily="FontAwesome5"
         fontSize={17}
         color="black"
         mr={8}
-        ml={8}
       />
 
       <Text fontWeight="bold" fontSize="lg" {...textProps}>

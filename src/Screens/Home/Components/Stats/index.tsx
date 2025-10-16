@@ -1,7 +1,6 @@
 import React from "react";
-import { Div, Text } from "react-native-magnus";
+import { Div, Icon, Text } from "react-native-magnus";
 import { Card, CardContent } from "@/Components/Card";
-import FontAwesome6 from "@react-native-vector-icons/fontawesome6";
 import { useExpenseStore } from "@/Hooks/useExpenseStore";
 
 export default function Stats() {
@@ -16,10 +15,12 @@ export default function Stats() {
             alignItems: "center",
           }}
         >
-          <FontAwesome6
+          <Icon
             name="dollar-sign"
-            iconStyle="solid"
-            style={{ fontSize: 20, margin: 15 }}
+            fontFamily="FontAwesome5"
+            color="black"
+            fontSize={20}
+            m={15}
           />
           <Div ml="none" pl={0}>
             <Text fontSize="lg" fontWeight="bold">
@@ -38,10 +39,12 @@ export default function Stats() {
             alignItems: "center",
           }}
         >
-          <FontAwesome6
+          <Icon
             name="calendar"
-            iconStyle="solid"
-            style={{ fontSize: 20, margin: 15 }}
+            fontFamily="FontAwesome5"
+            color="black"
+            fontSize={20}
+            m={15}
           />
           <Div>
             <Text fontSize="lg" fontWeight="bold">

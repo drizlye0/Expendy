@@ -82,6 +82,9 @@ export default function ExpenseForm({ modalRef }: Props) {
             options={["Food", "Transport", "Shopping"]}
           />
         </Div>
+        <Div flex={1} justifyContent="center" alignItems="center">
+          <Text>add photo</Text>
+        </Div>
       </Div>
       <Div flex={1} justifyContent="flex-end" alignItems="center" m={10}>
         <Button
