@@ -1,18 +1,15 @@
-import { Card, CardContent, CardTitle } from "@/Components/Card";
-import MainContainer from "@/Containers/MainContainer";
-import { useBottomSheetModal } from "@/Hooks/useBottomSheetModal";
-import { useExpenseStore } from "@/Hooks/useExpenseStore";
-import { useNavigation } from "@react-navigation/native";
-import { Div, Text, Button, Icon, ScrollDiv } from "react-native-magnus";
-import ExpenseForm from "../ExpenseForm";
-import {  TouchableOpacity } from "react-native";
-import { ExpenseItem } from "@/lib/types";
+import { Card, CardContent, CardTitle } from '@/Components/Card';
+import MainContainer from '@/Containers/MainContainer';
+import { useExpenseStore } from '@/Hooks/useExpenseStore';
+import { useNavigation } from '@react-navigation/native';
+import { Div, Text, Button, Icon, ScrollDiv } from 'react-native-magnus';
+import { TouchableOpacity } from 'react-native';
+import { ExpenseItem } from '@/lib/types';
 
 export default function AddExpense() {
   const navigator = useNavigation();
-  const expenses = useExpenseStore((state) => state.expenses);
-  const addExpense = useExpenseStore((state) => state.addExpense);
-  const { ref, handleModalPresent } = useBottomSheetModal();
+  const expenses = useExpenseStore(state => state.expenses);
+  const addExpense = useExpenseStore(state => state.addExpense);
 
   const handleAddExpense = (expense: ExpenseItem) => {
     addExpense(expense);
@@ -22,12 +19,7 @@ export default function AddExpense() {
   return (
     <MainContainer
       headerProps={{
-        heading: "Add Expense",
-        prefix: (
-          <Button bg="transparent" onPress={() => navigator.goBack()}>
-            <Icon name="arrow-left" fontFamily="FontAwesome5" />
-          </Button>
-        ),
+        heading: 'Add Expense',
       }}
     >
       {expenses.length === 0 && (
@@ -42,7 +34,7 @@ export default function AddExpense() {
         <ScrollDiv>
           {expenses.map((expense, key) => {
             const parsedDate = new Date(expense.date);
-            const formatedDate = new Intl.DateTimeFormat("en-US").format(
+            const formatedDate = new Intl.DateTimeFormat('en-US').format(
               parsedDate,
             );
 
@@ -50,7 +42,7 @@ export default function AddExpense() {
               <Card key={key}>
                 <TouchableOpacity
                   activeOpacity={0.6}
-                  style={{ flex: 1, flexDirection: "row" }}
+                  style={{ flex: 1, flexDirection: 'row' }}
                   onPress={() =>
                     handleAddExpense({
                       name: expense.name,
@@ -62,11 +54,11 @@ export default function AddExpense() {
                 >
                   <Div flex={1}>
                     <CardTitle title={expense.name} />
-                    <CardContent divProps={{ justifyContent: "space-between" }}>
+                    <CardContent divProps={{ justifyContent: 'space-between' }}>
                       <Div
                         justifyContent="space-around"
                         flexDir="row"
-                        w={"100%"}
+                        w={'100%'}
                       >
                         <Text>${expense.price}</Text>
                         <Text>{expense.type}</Text>
@@ -86,15 +78,14 @@ export default function AddExpense() {
 
       <Div flex={1} justifyContent="flex-end" alignItems="center">
         <Button
-          onPress={handleModalPresent}
+          onPress={() => navigator.navigate('ExpenseForm')}
           alignSelf="center"
-          w={"100%"}
+          w={'100%'}
           fontWeight="bold"
         >
           Add New Expense
         </Button>
       </Div>
-      <ExpenseForm modalRef={ref} />
     </MainContainer>
   );
 }

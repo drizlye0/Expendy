@@ -1,6 +1,7 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { StatusBar, useColorScheme } from "react-native";
-import { Div, Header } from "react-native-magnus";
+import { Div, Header, Button, Icon } from "react-native-magnus";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 interface HeaderProps {
@@ -15,8 +16,9 @@ interface Props {
 }
 
 export default function MainContainer({ children, headerProps }: Props) {
-  const { top, bottom } = useSafeAreaInsets();
   const isDarkMode = useColorScheme() === 'dark';
+  const { top, bottom } = useSafeAreaInsets();
+  const navigation = useNavigation()
 
   return (
     <Div bg="white" flex={1} pt={top} pb={bottom}>
@@ -31,7 +33,12 @@ export default function MainContainer({ children, headerProps }: Props) {
         lineHeight={26}
         textTransform="none"
         suffix={headerProps.suffix ? headerProps.suffix : null}
-        prefix={headerProps.prefix ? headerProps.prefix : null}
+        prefix={headerProps.prefix ? headerProps.prefix : (
+          <Button bg="transparent" onPress={() => navigation.goBack()}>
+            <Icon name="arrow-left" fontFamily="FontAwesome5" />
+          </Button>
+        )
+        }
       >
         {headerProps.heading}
       </Header>

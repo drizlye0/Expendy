@@ -1,17 +1,11 @@
-import React from "react";
-import MainContainer from "@/Containers/MainContainer";
-import { History, Overview, Stats } from "./Components";
-import { ScrollView } from "react-native-gesture-handler";
-import { Button, Icon } from "react-native-magnus";
-import ExpenseForm from "../ExpenseForm";
-import { useBottomSheetModal } from "@/Hooks/useBottomSheetModal";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import MainContainer from '@/Containers/MainContainer';
+import { History, Overview, Stats } from './Components';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Button, Icon } from 'react-native-magnus';
+import { useNavigation } from '@react-navigation/native';
 
-function AddExpenseButton({
-  handleModalPresent,
-}: {
-  handleModalPresent: () => void;
-}) {
+function AddExpenseButton() {
   const navigation = useNavigation();
 
   return (
@@ -21,7 +15,7 @@ function AddExpenseButton({
       w={35}
       h={35}
       mr={10}
-      onPress={() => navigation.navigate("AddExpense")}
+      onPress={() => navigation.navigate('AddExpense')}
     >
       <Icon name="plus" fontFamily="FontAwesome5" color="white" fontSize="sm" />
     </Button>
@@ -29,13 +23,12 @@ function AddExpenseButton({
 }
 
 export default function Home() {
-  const { ref, handleModalPresent } = useBottomSheetModal();
-
   return (
     <MainContainer
       headerProps={{
-        heading: "Expenses",
-        suffix: <AddExpenseButton handleModalPresent={handleModalPresent} />,
+        heading: 'Expenses',
+        suffix: <AddExpenseButton />,
+        prefix: <></>
       }}
     >
       <ScrollView
@@ -46,7 +39,6 @@ export default function Home() {
         <Overview />
         <History />
       </ScrollView>
-      <ExpenseForm modalRef={ref} />
     </MainContainer>
   );
 }

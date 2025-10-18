@@ -1,28 +1,29 @@
-import React, { useState } from "react";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { Div, Input, Text, Button } from "react-native-magnus";
-import Modal from "@/Components/Modal";
-import { HEIGHT } from "@/lib/constants";
-import { FormSelect } from "@/Components/Form/FormSelect";
-import { useExpenseStore } from "@/Hooks/useExpenseStore";
-import { ExpenseItem } from "@/lib/types";
-
-const percent = HEIGHT * 0.9;
+import React, { useState } from 'react';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { Div, Input, Text, Button, Icon } from 'react-native-magnus';
+import { FormSelect } from '@/Components/Form/FormSelect';
+import { useExpenseStore } from '@/Hooks/useExpenseStore';
+import { ExpenseItem } from '@/lib/types';
+import { Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import MainContainer from '@/Containers/MainContainer';
 
 interface Props {
   modalRef: React.RefObject<BottomSheetModal | null>;
 }
 
-export default function ExpenseForm({ modalRef }: Props) {
-  const [expenseType, setExpenseType] = useState<string>("");
-  const [expenseName, setExpenseName] = useState<string>("");
+export default function ExpenseForm() {
+  const [expenseType, setExpenseType] = useState<string>('');
+  const [expenseName, setExpenseName] = useState<string>('');
   const [expensePrice, setExpensePrice] = useState<number>(0);
-  const addExpense = useExpenseStore((state) => state.addExpense);
+
+  const navigation = useNavigation();
+  const addExpense = useExpenseStore(state => state.addExpense);
 
   const clearState = () => {
     setExpensePrice(0);
-    setExpenseName("");
-    setExpenseType("");
+    setExpenseName('');
+    setExpenseType('');
   };
 
   const handleAddExpense = () => {
@@ -34,17 +35,15 @@ export default function ExpenseForm({ modalRef }: Props) {
     };
     addExpense(expense);
     clearState();
-    modalRef.current?.dismiss();
   };
 
   return (
-    <Modal ref={modalRef} modalHeight={percent}>
+    <MainContainer
+      headerProps={{
+        heading: 'New Expense',
+      }}
+    >
       <Div flex={1} justifyContent="flex-start" alignItems="center" m={20}>
-        <Div alignItems="flex-start" minW={350} mb={10}>
-          <Text textAlign="right" fontSize="5xl" fontWeight="bold">
-            Add Expense
-          </Text>
-        </Div>
         <Div minW={350} minH={300} justifyContent="space-evenly">
           <Text fontWeight="600" fontSize="xl">
             Name
@@ -55,7 +54,7 @@ export default function ExpenseForm({ modalRef }: Props) {
             autoCapitalize="words"
             focusBorderColor="blue700"
             value={expenseName}
-            onChangeText={(name) => setExpenseName(name)}
+            onChangeText={name => setExpenseName(name)}
           />
           <Text fontWeight="600" fontSize="xl">
             Price
@@ -66,7 +65,7 @@ export default function ExpenseForm({ modalRef }: Props) {
             inputMode="numeric"
             focusBorderColor="blue700"
             fontSize="md"
-            onChangeText={(price) => setExpensePrice(parseInt(price))}
+            onChangeText={price => setExpensePrice(parseInt(price))}
           />
           <Text fontWeight="600" fontSize="xl">
             Type
@@ -76,14 +75,16 @@ export default function ExpenseForm({ modalRef }: Props) {
             setSelected={setExpenseType}
             inputProps={{
               minH: 45,
-              placeholder: "Type",
-              focusBorderColor: "blue700",
+              placeholder: 'Type',
+              focusBorderColor: 'blue700',
             }}
-            options={["Food", "Transport", "Shopping"]}
+            options={['Food', 'Transport', 'Shopping']}
           />
         </Div>
         <Div flex={1} justifyContent="center" alignItems="center">
-          <Text>add photo</Text>
+          <Pressable onPress={() => navigation.navigate('ExpendyCamera')}>
+            <Text>Add photo</Text>
+          </Pressable>
         </Div>
       </Div>
       <Div flex={1} justifyContent="flex-end" alignItems="center" m={10}>
@@ -96,6 +97,6 @@ export default function ExpenseForm({ modalRef }: Props) {
           Add Spent
         </Button>
       </Div>
-    </Modal>
+    </MainContainer>
   );
 }
