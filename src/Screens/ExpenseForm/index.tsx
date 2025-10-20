@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Div, Input, Text, Button } from 'react-native-magnus';
 import { FormSelect } from '@/Components/Form/FormSelect';
 import { useExpenseStore } from '@/Hooks/useExpenseStore';
 import { ExpenseItem } from '@/lib/types';
-import { Image, Pressable, StyleSheet } from 'react-native';
+import { Image, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MainContainer from '@/Containers/MainContainer';
 
