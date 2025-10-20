@@ -1,6 +1,8 @@
+import { RootStackParamList } from '@/Navigators/Root';
 import { mediaAndroidPermissions } from '@/Utils/permissions/mediaAndroidPermissions';
 import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 import { Button, Div } from 'react-native-magnus';
@@ -10,7 +12,9 @@ import {
   useCameraPermission,
 } from 'react-native-vision-camera';
 
-export default function ExpendyCamera() {
+type Props = NativeStackScreenProps<RootStackParamList, 'ExpendyCamera'>;
+
+export default function ExpendyCamera({ route }: Props) {
   const navigation = useNavigation();
   const device = useCameraDevice('back');
   const camera = useRef<Camera>(null);
@@ -74,11 +78,11 @@ export default function ExpendyCamera() {
       const localUri = `file://${picture.path}`;
 
       await CameraRoll.save(localUri, { type: 'photo' });
+      route.params?.onPhotoTaken(localUri);
 
-      navigation.navigate('ExpenseForm', {
-        photoUri: localUri,
-      });
+      navigation.goBack()
     } catch (e) {
+      navigation.goBack();
       Alert.alert('unxpected error ocurred');
       console.log(e);
       return;
@@ -91,6 +95,7 @@ export default function ExpendyCamera() {
         ref={camera}
         style={StyleSheet.absoluteFill}
         device={device}
+        photo={true}
         isActive={true}
       />
       <Button

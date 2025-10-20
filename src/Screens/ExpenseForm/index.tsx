@@ -5,13 +5,9 @@ import { useExpenseStore } from '@/Hooks/useExpenseStore';
 import { ExpenseItem } from '@/lib/types';
 import { Image, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import MainContainer from '@/Containers/MainContainer';
-import { RootStackParamList } from '@/Navigators/Root';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'ExpenseForm'>;
-
-export default function ExpenseForm({ route }: Props) {
+export default function ExpenseForm() {
   const [expenseType, setExpenseType] = useState<string>('');
   const [expenseName, setExpenseName] = useState<string>('');
   const [expensePrice, setExpensePrice] = useState<number>(0);
@@ -20,16 +16,11 @@ export default function ExpenseForm({ route }: Props) {
   const navigation = useNavigation();
   const addExpense = useExpenseStore(state => state.addExpense);
 
-  useEffect(() => {
-    if (route.params?.photoUri) {
-      setExpensePhotoUri(route.params.photoUri);
-    }
-  }, [route.params?.photoUri]);
-
   const clearState = () => {
     setExpensePrice(0);
     setExpenseName('');
     setExpenseType('');
+    setExpensePhotoUri('');
   };
 
   const handleAddExpense = () => {
@@ -46,6 +37,15 @@ export default function ExpenseForm({ route }: Props) {
     };
     addExpense(expense);
     clearState();
+    navigation.goBack();
+  };
+
+  const handleOpenCamera = () => {
+    navigation.navigate('ExpendyCamera', {
+      onPhotoTaken: (uri: string) => {
+        setExpensePhotoUri(uri);
+      },
+    });
   };
 
   return (
@@ -92,23 +92,23 @@ export default function ExpenseForm({ route }: Props) {
             options={['Food', 'Transport', 'Shopping']}
           />
         </Div>
-        {expensePhotoUri == null && (
-          <Div flex={1} justifyContent="center" alignItems="center">
-            <Pressable onPress={() => navigation.navigate('ExpendyCamera')}>
-              <Text>Add photo</Text>
-            </Pressable>
-          </Div>
-        )}
-        {expensePhotoUri != null && (
-          <Div flex={1} justifyContent="center" alignItems="center">
-            <Image
-              source={{ uri: expensePhotoUri }}
-              style={StyleSheet.absoluteFill}
-            />
-          </Div>
-        )}
       </Div>
-      <Div flex={1} justifyContent="flex-end" alignItems="center" m={10}>
+      {expensePhotoUri == null && (
+        <Div flex={1} justifyContent="center" alignItems="center">
+          <Pressable onPress={handleOpenCamera}>
+            <Text>Add photo</Text>
+          </Pressable>
+        </Div>
+      )}
+      {expensePhotoUri != null && (
+        <Div flex={1.1} justifyContent="center" alignItems="center">
+          <Image
+            source={{ uri: expensePhotoUri }}
+            style={{ flex: 1, height: 200, width: 200 }}
+          />
+        </Div>
+      )}
+      <Div flex={0.3} justifyContent="flex-end" alignItems="center" m={10}>
         <Button
           rounded="md"
           w="100%"
