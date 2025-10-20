@@ -9,7 +9,11 @@ export type RootStackParamList = {
   Home: undefined;
   AddExpense: undefined;
   ExpenseForm: { photoUri: string } | undefined;
-  ExpendyCamera: undefined;
+  ExpendyCamera:
+    | {
+        onPhotoTaken: (uri: string) => void;
+      }
+    | undefined;
 };
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
