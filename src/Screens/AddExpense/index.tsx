@@ -2,8 +2,8 @@ import { Card, CardContent, CardTitle } from '@/Components/Card';
 import MainContainer from '@/Containers/MainContainer';
 import { useExpenseStore } from '@/Hooks/useExpenseStore';
 import { useNavigation } from '@react-navigation/native';
-import { Div, Text, Button, Icon, ScrollDiv } from 'react-native-magnus';
-import { TouchableOpacity } from 'react-native';
+import { Div, Text, Button, ScrollDiv } from 'react-native-magnus';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { ExpenseItem } from '@/lib/types';
 
 export default function AddExpense() {
@@ -66,8 +66,11 @@ export default function AddExpense() {
                       </Div>
                     </CardContent>
                   </Div>
-                  <Div flex={0.5} bg="blue">
-                    <Text>Image</Text>
+                  <Div flex={0.5}>
+                    <Image
+                      source={{ uri: expense.imageUri }}
+                      style={StyleSheet.absoluteFill}
+                    />
                   </Div>
                 </TouchableOpacity>
               </Card>

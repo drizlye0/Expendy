@@ -1,11 +1,18 @@
-import React from "react";
-import Home from "@/Screens/Home";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import AddExpense from "@/Screens/AddExpense";
-import ExpendyCamera from "@/Components/ExpendyCamera";
-import ExpenseForm from "@/Screens/ExpenseForm";
+import React from 'react';
+import Home from '@/Screens/Home';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AddExpense from '@/Screens/AddExpense';
+import ExpendyCamera from '@/Components/ExpendyCamera';
+import ExpenseForm from '@/Screens/ExpenseForm';
 
-const { Navigator, Screen } = createNativeStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  AddExpense: undefined;
+  ExpenseForm: { photoUri: string } | undefined;
+  ExpendyCamera: undefined;
+};
+
+const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootStack() {
   return (

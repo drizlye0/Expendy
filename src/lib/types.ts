@@ -3,6 +3,7 @@ export type ExpenseItem = {
   price: number;
   type: string;
   date: string;
+  imageUri?: string;
 };
 
 export type ExpenseTypeCount = {

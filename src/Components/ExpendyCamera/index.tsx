@@ -1,7 +1,9 @@
 import { mediaAndroidPermissions } from '@/Utils/permissions/mediaAndroidPermissions';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import { useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert, StyleSheet } from 'react-native';
+import { Button, Div } from 'react-native-magnus';
 import {
   Camera,
   useCameraDevice,
@@ -11,6 +13,8 @@ import {
 export default function ExpendyCamera() {
   const navigation = useNavigation();
   const device = useCameraDevice('back');
+  const camera = useRef<Camera>(null);
+
   const {
     hasPermission: hasCameraPermission,
     requestPermission: requestCameraPermission,
@@ -18,6 +22,7 @@ export default function ExpendyCamera() {
 
   const [permissionsReady, setPermissionsReady] = useState(false);
 
+  // TODO: REFACTOR
   useEffect(() => {
     const setupPermissions = async () => {
       if (!hasCameraPermission) {
@@ -57,7 +62,45 @@ export default function ExpendyCamera() {
     return null;
   }
 
+  const handlePicture = async () => {
+    try {
+      if (camera.current == null) {
+        navigation.goBack();
+        Alert.alert('camera device error');
+        return;
+      }
+
+      const picture = await camera.current.takePhoto();
+      const localUri = `file://${picture.path}`;
+
+      await CameraRoll.save(localUri, { type: 'photo' });
+
+      navigation.navigate('ExpenseForm', {
+        photoUri: localUri,
+      });
+    } catch (e) {
+      Alert.alert('unxpected error ocurred');
+      console.log(e);
+      return;
+    }
+  };
+
   return (
-    <Camera style={StyleSheet.absoluteFill} device={device} isActive={true} />
+    <Div flex={1}>
+      <Camera
+        ref={camera}
+        style={StyleSheet.absoluteFill}
+        device={device}
+        isActive={true}
+      />
+      <Button
+        onPress={handlePicture}
+        position="absolute"
+        bottom={0}
+        alignSelf="center"
+      >
+        take expense
+      </Button>
+    </Div>
   );
 }

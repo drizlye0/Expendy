@@ -1,24 +1,30 @@
-import React, { useState } from 'react';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { Div, Input, Text, Button, Icon } from 'react-native-magnus';
+import React, { useEffect, useState } from 'react';
+import { Div, Input, Text, Button } from 'react-native-magnus';
 import { FormSelect } from '@/Components/Form/FormSelect';
 import { useExpenseStore } from '@/Hooks/useExpenseStore';
 import { ExpenseItem } from '@/lib/types';
-import { Pressable } from 'react-native';
+import { Image, Pressable, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import MainContainer from '@/Containers/MainContainer';
+import { RootStackParamList } from '@/Navigators/Root';
 
-interface Props {
-  modalRef: React.RefObject<BottomSheetModal | null>;
-}
+type Props = NativeStackScreenProps<RootStackParamList, 'ExpenseForm'>;
 
-export default function ExpenseForm() {
+export default function ExpenseForm({ route }: Props) {
   const [expenseType, setExpenseType] = useState<string>('');
   const [expenseName, setExpenseName] = useState<string>('');
   const [expensePrice, setExpensePrice] = useState<number>(0);
+  const [expensePhotoUri, setExpensePhotoUri] = useState<string | null>(null);
 
   const navigation = useNavigation();
   const addExpense = useExpenseStore(state => state.addExpense);
+
+  useEffect(() => {
+    if (route.params?.photoUri) {
+      setExpensePhotoUri(route.params.photoUri);
+    }
+  }, [route.params?.photoUri]);
 
   const clearState = () => {
     setExpensePrice(0);
@@ -27,11 +33,16 @@ export default function ExpenseForm() {
   };
 
   const handleAddExpense = () => {
+    if (expensePhotoUri == null) {
+      setExpensePhotoUri('');
+    }
+
     const expense: ExpenseItem = {
       name: expenseName,
       price: expensePrice,
       type: expenseType,
       date: new Date().toString(),
+      imageUri: expensePhotoUri ? expensePhotoUri : '',
     };
     addExpense(expense);
     clearState();
@@ -81,11 +92,21 @@ export default function ExpenseForm() {
             options={['Food', 'Transport', 'Shopping']}
           />
         </Div>
-        <Div flex={1} justifyContent="center" alignItems="center">
-          <Pressable onPress={() => navigation.navigate('ExpendyCamera')}>
-            <Text>Add photo</Text>
-          </Pressable>
-        </Div>
+        {expensePhotoUri == null && (
+          <Div flex={1} justifyContent="center" alignItems="center">
+            <Pressable onPress={() => navigation.navigate('ExpendyCamera')}>
+              <Text>Add photo</Text>
+            </Pressable>
+          </Div>
+        )}
+        {expensePhotoUri != null && (
+          <Div flex={1} justifyContent="center" alignItems="center">
+            <Image
+              source={{ uri: expensePhotoUri }}
+              style={StyleSheet.absoluteFill}
+            />
+          </Div>
+        )}
       </Div>
       <Div flex={1} justifyContent="flex-end" alignItems="center" m={10}>
         <Button
