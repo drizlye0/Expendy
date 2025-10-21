@@ -1,3 +1,4 @@
+import { WIDTH } from '@/lib/constants';
 import { RootStackParamList } from '@/Navigators/Root';
 import { mediaAndroidPermissions } from '@/Utils/permissions/mediaAndroidPermissions';
 import { CameraRoll } from '@react-native-camera-roll/camera-roll';
@@ -9,6 +10,7 @@ import { Button, Div } from 'react-native-magnus';
 import {
   Camera,
   useCameraDevice,
+  useCameraFormat,
   useCameraPermission,
 } from 'react-native-vision-camera';
 
@@ -17,7 +19,13 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ExpendyCamera'>;
 export default function ExpendyCamera({ route }: Props) {
   const navigation = useNavigation();
   const device = useCameraDevice('back');
+  const format = useCameraFormat(device, [
+    { photoAspectRatio: 4 / 3 },
+    { fps: 60 },
+  ]);
   const camera = useRef<Camera>(null);
+
+  const camearHeight = (WIDTH * 4) / 3;
 
   const {
     hasPermission: hasCameraPermission,
@@ -80,7 +88,7 @@ export default function ExpendyCamera({ route }: Props) {
       await CameraRoll.save(localUri, { type: 'photo' });
       route.params?.onPhotoTaken(localUri);
 
-      navigation.goBack()
+      navigation.goBack();
     } catch (e) {
       navigation.goBack();
       Alert.alert('unxpected error ocurred');
@@ -90,22 +98,25 @@ export default function ExpendyCamera({ route }: Props) {
   };
 
   return (
-    <Div flex={1}>
-      <Camera
-        ref={camera}
-        style={StyleSheet.absoluteFill}
-        device={device}
-        photo={true}
-        isActive={true}
-      />
-      <Button
-        onPress={handlePicture}
-        position="absolute"
-        bottom={0}
-        alignSelf="center"
-      >
-        take expense
-      </Button>
+    <Div flex={1} bg="#171717">
+      <Div flex={1} justifyContent="flex-start" mt={80}>
+        <Camera
+          ref={camera}
+          style={{
+            height: camearHeight,
+            width: '100%',
+            overflow: 'hidden',
+            borderRadius: 12,
+          }}
+          device={device}
+          photo={true}
+          format={format}
+          isActive={true}
+        />
+      </Div>
+      <Div flex={1} mt={20} alignSelf="center" justifyContent="center">
+        <Button onPress={handlePicture}>take expense</Button>
+      </Div>
     </Div>
   );
 }
