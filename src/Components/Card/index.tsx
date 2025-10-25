@@ -1,5 +1,6 @@
-import React, { ComponentProps } from "react";
-import { Div, DivProps, Icon, Text } from "react-native-magnus";
+import React, { ComponentProps } from 'react';
+import { StyleSheet } from 'react-native';
+import { Div, DivProps, Icon, Text } from 'react-native-magnus';
 
 interface Props {
   children: React.ReactNode;
@@ -48,16 +49,19 @@ function CardTitle({
   iconProps,
 }: CardTitleProps) {
   return (
-    <Div flexDir="row" alignItems="flex-end" m="10" {...divProps}>
-      <Icon
-        name={iconProps ? iconProps.name : "shopping-basket"}
-        fontFamily="FontAwesome5"
-        fontSize={17}
-        color="black"
-        mr={8}
-      />
-
-      <Text fontWeight="bold" fontSize="lg" {...textProps}>
+    <Div flexDir="row" m="10" {...divProps}>
+      {iconProps?.name && (
+        <Icon
+          name={iconProps ? iconProps.name : 'shopping-basket'}
+          fontFamily="FontAwesome5"
+          fontSize={17}
+          color="black"
+          position="absolute"
+          left={0}
+        />
+      )}
+      {!textProps?.textAlign && <Div mr={25}></Div>}
+      <Text flex={1} fontWeight="bold" fontSize="lg" {...textProps}>
         {text}
       </Text>
     </Div>
