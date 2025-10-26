@@ -45,7 +45,7 @@ export function FormSelect({
           {options.map((opt, index) => (
             <Pressable key={index} onPress={() => handleSelect(opt)}>
               <Div py="sm" px="xl">
-                <Text mb="sm" fontSize="lg">{opt}</Text>
+                <Text mb="sm" fontSize="xl" fontWeight="bold">{opt}</Text>
               </Div>
             </Pressable>
           ))}

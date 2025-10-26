@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Div, Input, Text, Button } from 'react-native-magnus';
+import { Div, Input, Text, Button, Icon } from 'react-native-magnus';
 import { FormSelect } from '@/Components/Form/FormSelect';
 import { useExpenseStore } from '@/Hooks/useExpenseStore';
 import { ExpenseItem } from '@/lib/types';
@@ -56,47 +56,67 @@ export default function ExpenseForm() {
     >
       <Div flex={1} justifyContent="flex-start" alignItems="center" m={20}>
         <Div minW={350} minH={300} justifyContent="space-evenly">
-          <Text fontWeight="600" fontSize="xl">
-            Name
+          <Text fontWeight="600" fontSize="xl" color='gray600'>
+            Amount
           </Text>
           <Input
-            placeholder="Name"
-            minH={45}
+            placeholder="$0.00"
+            minH={80}
+            inputMode="numeric"
+            focusBorderColor="gray900"
+            fontWeight='bold'
+            textAlign='center'
+            fontSize="5xl"
+            cursorColor={"gray900"}
+            onChangeText={price => setExpensePrice(parseInt(price))}
+          />
+          <Text fontWeight="600" fontSize="xl" color='gray600'>
+            Description
+          </Text>
+          <Input
+            placeholder="e.g, Coffe with friend"
+            minH={60}
+            cursorColor={"gray900"}
             autoCapitalize="words"
-            focusBorderColor="blue700"
+            fontWeight='bold'
+            fontSize={'lg'}
+            focusBorderColor="gray900"
             value={expenseName}
             onChangeText={name => setExpenseName(name)}
           />
-          <Text fontWeight="600" fontSize="xl">
-            Price
-          </Text>
-          <Input
-            placeholder="Price"
-            minH={45}
-            inputMode="numeric"
-            focusBorderColor="blue700"
-            fontSize="md"
-            onChangeText={price => setExpensePrice(parseInt(price))}
-          />
-          <Text fontWeight="600" fontSize="xl">
-            Type
+          <Text fontWeight="600" fontSize="xl" color='gray600'>
+            Category
           </Text>
           <FormSelect
             selected={expenseType}
             setSelected={setExpenseType}
             inputProps={{
-              minH: 45,
-              placeholder: 'Type',
-              focusBorderColor: 'blue700',
+              minH: 60,
+              placeholder: 'Select Category',
+              cursorColor: "gray900",
+              fontSize: 'lg',
+              fontWeight: 'bold',
+              placeholderTextColor: "black",
+              focusBorderColor: 'gray900',
+              suffix: <Icon name='angle-down' fontFamily='FontAwesome5' fontSize={'lg'}/>
             }}
-            options={['Food', 'Transport', 'Shopping']}
+            options={[
+              'Food',
+              'Transport',
+              'Shopping',
+              'Clothes',
+              'Stationery',
+              'Other',
+            ]}
           />
         </Div>
       </Div>
       {expensePhotoUri == null && (
         <Div flex={1} justifyContent="center" alignItems="center">
           <Pressable onPress={handleOpenCamera}>
-            <Text>Add photo</Text>
+            <Text fontSize={'3xl'} fontWeight="bold">
+              Add photo
+            </Text>
           </Pressable>
         </Div>
       )}
@@ -112,8 +132,10 @@ export default function ExpenseForm() {
         <Button
           rounded="md"
           w="100%"
-          fontWeight="600"
+          fontWeight='600'
+          fontSize={"2xl"}
           onPress={() => handleAddExpense()}
+          bg='gray900'
         >
           Add Spent
         </Button>

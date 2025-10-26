@@ -24,7 +24,7 @@ export default function AddExpense() {
     >
       {expenses.length === 0 && (
         <Div flex={1} justifyContent="center" alignItems="center">
-          <Text color="black" opacity={0.5}>
+          <Text color="gray600" fontSize={'xl'}>
             No expenses
           </Text>
         </Div>
@@ -79,12 +79,14 @@ export default function AddExpense() {
         </ScrollDiv>
       )}
 
-      <Div flex={1} justifyContent="flex-end" alignItems="center">
-        <Button
+      <Div flex={1} justifyContent="flex-end" alignItems="center" m={10}>
+        <Button  
           onPress={() => navigator.navigate('ExpenseForm')}
           alignSelf="center"
           w={'100%'}
-          fontWeight="bold"
+          fontSize={"2xl"}
+          fontWeight="600"
+          bg='gray900'
         >
           Add New Expense
         </Button>
