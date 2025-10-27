@@ -23,9 +23,9 @@ export default function AddExpense() {
       }}
     >
       {expenses.length === 0 && (
-        <Div flex={1} justifyContent="center" alignItems="center">
-          <Text color="gray600" fontSize={'xl'}>
-            No expenses
+        <Div flex={1} justifyContent="center">
+          <Text color="gray600" fontSize={'xl'} textAlign='center'>
+            No Expenses
           </Text>
         </Div>
       )}
@@ -53,20 +53,24 @@ export default function AddExpense() {
                   }
                 >
                   <Div flex={1}>
-                    <CardTitle title={expense.name} />
+                    <CardTitle 
+                      iconProps={{ name: "shopping-basket"}}
+                      textProps={{ fontSize: "xl" }}
+                      title={expense.name} />
                     <CardContent divProps={{ justifyContent: 'space-between' }}>
                       <Div
                         justifyContent="space-around"
+                        flexWrap='nowrap'
                         flexDir="row"
                         w={'100%'}
                       >
-                        <Text>${expense.price}</Text>
-                        <Text>{expense.type}</Text>
-                        <Text>{formatedDate}</Text>
+                        <Text fontSize='sm'>${expense.price}</Text>
+                        <Text fontSize='sm'>{expense.type}</Text>
+                        <Text fontSize='sm'>{formatedDate}</Text>
                       </Div>
                     </CardContent>
                   </Div>
-                  <Div flex={0.5}>
+                  <Div flex={0.4}>
                     <Image
                       source={{ uri: expense.imageUri }}
                       style={StyleSheet.absoluteFill}

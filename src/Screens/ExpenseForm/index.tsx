@@ -121,7 +121,7 @@ export default function ExpenseForm() {
         </Div>
       )}
       {expensePhotoUri != null && (
-        <Div flex={1.1} justifyContent="center" alignItems="center">
+        <Div flex={0.8} justifyContent="center" alignItems="center">
           <Image
             source={{ uri: expensePhotoUri }}
             style={{ flex: 1, height: 200, width: 200 }}

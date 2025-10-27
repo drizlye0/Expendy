@@ -2,7 +2,7 @@ import React, { ComponentProps, PropsWithChildren } from "react";
 import { createContext, useContext } from "react";
 import { Div, Text, Icon } from "react-native-magnus";
 
-type ArticleType = {
+export type ArticleType = {
   name: string;
   type: string;
   price: number;
@@ -35,9 +35,9 @@ function Article({ children, article, iconProps }: ArticleProps) {
     <ArticleContext.Provider value={{ article }}>
       <Div flexDir="row" alignItems="center" p={10}>
         {iconProps ? (
-          <Icon {...iconProps} fontSize={18} mr={10} fontFamily="FontAwesome" color="black" />
+          <Icon {...iconProps} fontSize={18} mr={10} fontFamily="FontAwesome5" color="black" />
         ) : (
-          <Icon name="shopping-basket" fontFamily="FontAwesome" fontSize={18} mr={10} color="black"/>
+          <Icon name="shopping-basket" fontFamily="FontAwesome5" fontSize={18} mr={10} color="black"/>
         )}
         {children}
       </Div>
@@ -106,4 +106,4 @@ Article.Date = ArticleDate;
 Article.Price = Price;
 Article.Category = Category;
 
-export { Article, ArticleType };
+export { Article };

@@ -13,7 +13,7 @@ export default function Label({ text, textProps, iconProps }: Props) {
       <Icon
         ml={8}
         color="black"
-        fontFamily="FontAwesome"
+        fontFamily="FontAwesome5"
         {...iconProps}
       />
       <Text fontWeight="bold" {...textProps}>
