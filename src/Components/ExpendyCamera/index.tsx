@@ -5,7 +5,7 @@ import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect, useRef, useState } from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import { Alert } from 'react-native';
 import { Button, Div } from 'react-native-magnus';
 import {
   Camera,
@@ -25,7 +25,7 @@ export default function ExpendyCamera({ route }: Props) {
   ]);
   const camera = useRef<Camera>(null);
 
-  const camearHeight = (WIDTH * 4) / 3;
+  const cameraHeight = (WIDTH * 4) / 3;
 
   const {
     hasPermission: hasCameraPermission,
@@ -103,7 +103,7 @@ export default function ExpendyCamera({ route }: Props) {
         <Camera
           ref={camera}
           style={{
-            height: camearHeight,
+            height: cameraHeight,
             width: '100%',
             overflow: 'hidden',
             borderRadius: 12,
@@ -115,7 +115,14 @@ export default function ExpendyCamera({ route }: Props) {
         />
       </Div>
       <Div flex={1} mt={20} alignSelf="center" justifyContent="center">
-        <Button onPress={handlePicture}>take expense</Button>
+        <Button
+          onPress={handlePicture}
+          rounded="circle"
+          bg="gray100"
+          p={30}
+          borderColor="gray900"
+          borderWidth={6}
+        ></Button>
       </Div>
     </Div>
   );
